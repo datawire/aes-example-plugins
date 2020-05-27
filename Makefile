@@ -4,7 +4,7 @@ DOCKER_REGISTRY ?= localhost:31000
 DOCKER_IMAGE ?= $(DOCKER_REGISTRY)/aes-custom:$(shell git describe --tags --always --dirty)
 
 AES_VERSION ?= 1.5.0
-AES_IMAGE ?= quay.io/datawire/aes:$(AES_VERSION)
+AES_IMAGE ?= docker.io/datawire/aes:$(AES_VERSION)
 
 all: .docker.stamp
 .PHONY: all
