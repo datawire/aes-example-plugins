@@ -65,7 +65,7 @@ cluster has access to.  You can do this by running `make push
 DOCKER_REGISTRY=...`.
 
 Use that image you just pushed instead of
-`quay.io/datawire/ambassador_pro:amb-sidecar` when deploying
+`docker.io/datawire/ambassador_pro:amb-sidecar` when deploying
 Ambassador Pro. For more details on deployment, consult the Filter documentation.
 
 ## How a plugin works
