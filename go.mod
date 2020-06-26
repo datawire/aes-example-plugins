@@ -15,10 +15,10 @@ require (
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/stretchr/testify v1.5.1 // indirect
-	golang.org/x/crypto v0.0.0-20191028145041-f83a4685e152 // indirect
-	golang.org/x/net v0.0.0-20200226121028-0de0cce0169b // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	golang.org/x/sys v0.0.0-20191028164358-195ce5e7f934 // indirect
+	golang.org/x/sys v0.0.0-20200420163511-1957bb5e6d1f
 	golang.org/x/text v0.3.2 // indirect
-	gopkg.in/yaml.v2 v2.2.7 // indirect
+	gopkg.in/yaml.v2 v2.2.8
 )
