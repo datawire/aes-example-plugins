@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	_  "github.com/hashicorp/consul/api"
+	_ "github.com/hashicorp/consul/api"
 )
 
 func PluginMain(w http.ResponseWriter, r *http.Request) {
