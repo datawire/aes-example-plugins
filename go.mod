@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/google/btree v1.0.0 // indirect
-	github.com/hashicorp/consul v1.4.3
+	github.com/hashicorp/consul v1.5.0
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
