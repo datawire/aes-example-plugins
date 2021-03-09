@@ -41,11 +41,9 @@ push: .docker.stamp
 	docker push $(DOCKER_IMAGE)
 .PHONY: push
 
-download-go:
-	go list ./...
 download-docker:
 	docker pull $(go.DOCKER_IMAGE) || docker run --rm --entrypoint=true $(go.DOCKER_IMAGE)
-.PHONY: download-go download-docker
+.PHONY: download-docker
 
 build-container:
 ifeq "$(container.ID)" ""
@@ -57,16 +55,20 @@ sync: build-container
 	$(container-rsync) --exclude-from=${CURDIR}/build/sync-excludes.txt -r . $(container.ID):$(CURDIR)
 	$(container-rsync) -r $(firstword $(subst :, ,$(shell go env GOPATH)))/pkg/mod/cache/download/ $(container.ID):/mnt/goproxy/
 
-.common-pkgs.txt: aes-abi.pkgs.txt download-go
-	@bash -c 'comm -12 <(go list -m all|cut -d" " -f1|sort) <(< $< cut -d" " -f1|sort)' > $@
+vendor: FORCE
+	go mod vendor
+.my-abi.pkgs.txt: vendor
+	sed -n 's/^# //p' < vendor/modules.txt > $@
+.common-pkgs.txt: aes-abi.pkgs.txt .my-abi.pkgs.txt
+	@bash -c 'comm -12 <(<.my-abi.pkgs.txt cut -d" " -f1|sort) <(< aes-abi.pkgs.txt cut -d" " -f1|sort)' > $@
 version-check: .common-pkgs.txt aes-abi.pkgs.txt
-	@bash -c 'diff -u <(grep -F -f $< aes-abi.pkgs.txt) <(go list -m all | grep -F -f $<)' || { \
+	@bash -c 'diff -u <(grep -F -f $< aes-abi.pkgs.txt) <(grep -F -f $< .my-abi.pkgs.txt)' || { \
 		printf '\nKey:\n  -version in AES\n  +version in Plugin\n\nERROR: dependency versions do not match AES\n\n'; \
 		false; \
 	}
 .PHONY: version-check
 
-%.so: $(PLUGIN_DIR)/%.go download-go download-docker version-check sync
+%.so: $(PLUGIN_DIR)/%.go download-docker version-check sync
 	$(go.GOBUILD) -buildmode=plugin -o $@ $<
 	$(container-rsync) -a $(container.ID):${CURDIR}/$(@F) .
 
