@@ -10,6 +10,8 @@ all: .docker.stamp
 .PHONY: all
 
 aes-abi.txt: .var.AES_IMAGE
+	@printf "AES_VERSION=$(AES_VERSION)\n"
+	@printf "AES_IMAGE=$(AES_IMAGE)\n"
 	docker run --rm --entrypoint=cat $(AES_IMAGE) /ambassador/aes-abi.txt > $@
 %.mk: %.txt
 	{ \
