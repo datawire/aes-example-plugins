@@ -78,7 +78,7 @@ clean:
 	rm -f -- *.so .docker.stamp .common-pkgs.txt .tmp.* .var.* Dockerfile aes-abi*
 ifneq "$(container.ID)" ""
 	docker kill $(container.ID)
-endif	
+endif
 .PHONY: clean
 
 .DELETE_ON_ERROR:
