@@ -21,6 +21,7 @@ require (
 )
 
 replace (
+	github.com/datawire/ambassador v0.0.0-00010101000000-000000000000 => github.com/datawire/ambassador v1.13.11-0.20210730050349-db42561b4969
 	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
 	github.com/docker/docker => github.com/moby/moby v17.12.0-ce-rc1.0.20200618181300-9dc6525e6118+incompatible
 )
