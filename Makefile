@@ -60,7 +60,7 @@ sync: build-container
 vendor: FORCE
 	go mod vendor
 .my-abi.pkgs.txt: vendor
-	sed -n 's/^# //p' < vendor/modules.txt > $@
+	<vendor/modules.txt grep -e '^[^#]' -e '^# ' | grep -B1 '^[^#]' | sed -n 's/^# //p' >$@
 .common-pkgs.txt: aes-abi.pkgs.txt .my-abi.pkgs.txt
 	@bash -c 'comm -12 <(<.my-abi.pkgs.txt cut -d" " -f1|sort) <(< aes-abi.pkgs.txt cut -d" " -f1|sort)' > $@
 version-check: .common-pkgs.txt aes-abi.pkgs.txt
