@@ -1,10 +1,10 @@
 PLUGIN_DIR ?= .
 
 DOCKER_REGISTRY ?= localhost:31000
-DOCKER_IMAGE ?= $(DOCKER_REGISTRY)/aes-custom:$(shell git describe --tags --always --dirty)
+DOCKER_IMAGE ?= $(DOCKER_REGISTRY)/aes-custom:$(shell git describe --tags --always --dirty --exclude '*-hf.*')
 
 
-AES_VERSION ?= 2.1.0
+AES_VERSION ?= 2.1.1
 AES_IMAGE ?= docker.io/datawire/aes:$(AES_VERSION)
 
 all: .docker.stamp
@@ -61,7 +61,7 @@ sync: build-container
 vendor: FORCE
 	go mod vendor
 .my-abi.pkgs.txt: vendor
-	sed -n 's/^# //p' < vendor/modules.txt > $@
+	<vendor/modules.txt grep -e '^[^#]' -e '^# ' | grep -B1 '^[^#]' | sed -n 's/^# //p' >$@
 .common-pkgs.txt: aes-abi.pkgs.txt .my-abi.pkgs.txt
 	@bash -c 'comm -12 <(<.my-abi.pkgs.txt cut -d" " -f1|sort) <(< aes-abi.pkgs.txt cut -d" " -f1|sort)' > $@
 version-check: .common-pkgs.txt aes-abi.pkgs.txt
@@ -79,7 +79,7 @@ clean:
 	rm -f -- *.so .docker.stamp .common-pkgs.txt .tmp.* .var.* Dockerfile aes-abi*
 ifneq "$(container.ID)" ""
 	docker kill $(container.ID)
-endif	
+endif
 .PHONY: clean
 
 .DELETE_ON_ERROR:
