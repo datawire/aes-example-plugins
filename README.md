@@ -55,7 +55,7 @@ To compile for a specific version of Ambassador Pro, set `APRO_VERSION`:
 
 	$ make APRO_VERSION=0.2.2-rc2 DOCKER_REGISTRY=...
 
-When switching Ambassador Pro versions, it may be nescessary to edit
+When switching Ambassador Pro versions, it may be necessary to edit
 the `go.mod` file.
 
 ## Deploying
