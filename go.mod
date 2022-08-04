@@ -1,6 +1,6 @@
 module github.com/datawire/apro-example-plugin
 
-go 1.17
+go 1.18
 
 // Exclude bogus version numbers.
 exclude (
