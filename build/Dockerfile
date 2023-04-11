@@ -13,7 +13,7 @@ RUN apk --no-cache add \
   gcc \
   musl-dev \
   curl && \
-  curl --fail -L https://dl.google.com/go/go1.20.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+  curl --fail -L https://dl.google.com/go/go1.20.3.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 RUN mkdir -p ${CUR_DIR}
 RUN mkdir -p /mnt/goproxy
