@@ -1,0 +1,25 @@
+apiVersion: getambassador.io/v2
+kind: Module
+metadata:
+  labels:
+    app.kubernetes.io/component: edge-stack-ratelimit
+    app.kubernetes.io/instance: edge-stack
+    app.kubernetes.io/managed-by: getambassador.io
+    app.kubernetes.io/name: edge-stack
+    app.kubernetes.io/part-of: edge-stack
+    product: aes
+  name: ambassador
+  namespace: ambassador
+spec:
+  ambassador_id:
+  - --apiVersion-v3alpha1-only--default
+  config:
+    lua_scripts: |
+      function envoy_on_request(request_handle)
+        request_handle:headers():add("X-Client-Trace-Id", "176dcbe8-413c-4131-8cb5-9f901fda3a15")
+        request_handle:headers():add("X-Envoy-Force-Trace", "true")
+      end
+      function envoy_on_response(response_handle)
+        response_handle:headers():add("X-Client-Trace-Id", "176dcbe8-413c-4131-8cb5-9f901fda3a15")
+        response_handle:headers():add("X-Envoy-Force-Trace", "true")
+      end

@@ -1,0 +1,24 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Filter
+metadata:
+  name: "param-plugin-filter"
+  namespace: "default"
+spec:
+  Plugin:
+    name: "param-plugin"
+---
+apiVersion: getambassador.io/v3alpha1
+kind: FilterPolicy
+metadata:
+  name: "param-plugin-filter-policy"
+  namespace: "default"
+spec:
+  rules:
+  - host: "*"
+    path: "*"
+    filters:
+    - name: "param-plugin-filter"
+      namespace: "default"
+    - name: "param-plugin-filter"
+      namespace: "default"
