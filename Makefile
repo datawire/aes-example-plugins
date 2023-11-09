@@ -4,7 +4,7 @@ DOCKER_REGISTRY ?= localhost:31000
 DOCKER_IMAGE ?= $(DOCKER_REGISTRY)/aes-custom:$(shell git describe --tags --always --dirty --exclude '*-hf.*')
 
 
-AES_VERSION ?= 3.9.0-rc.3
+AES_VERSION ?= 3.9.0-rc.4
 AES_IMAGE ?= docker.io/datawire/aes:$(AES_VERSION)
 
 all: .docker.stamp
